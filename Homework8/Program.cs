@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using Newtonsoft.Json;
 
 namespace Homework8
@@ -75,6 +76,9 @@ namespace Homework8
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Телефонная книга
+        /// </summary>
         static void Part2()
         {
             Console.Clear();
@@ -86,14 +90,59 @@ namespace Homework8
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Проверка повторов
+        /// </summary>
         static void Part3()
         {
-            
+            Console.Clear();
+            HashSet<int> myHashSet = new HashSet<int>();
+            bool exit = false;
+            while (!exit)
+            {
+                Console.Write("Для завершения редактирования нажмите Enter не вводя число.\nВведите число: ");
+                string temp = Console.ReadLine();
+                if(temp == "")
+                {
+                    exit = true;
+                }
+                else
+                {
+                    try
+                    {
+                        if (!myHashSet.Add(int.Parse(temp)))
+                        {
+                            Console.WriteLine("Число уже есть в коллекции!!!");
+                        }
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Неверный ввод!!!");
+                    }
+                }
+            }
         }
 
+        /// <summary>
+        /// Записная книжка
+        /// </summary>
         static void Part4()
         {
+            string Name, Street, HouseNumber, FlatNumber, MobilePhone, FlatPhone;
+            Console.Write("Введите имя:");
+            Name = Console.ReadLine();
+            Console.Write("Введите название улицы:");
+            Street = Console.ReadLine();
+            Console.Write("Введите номер дома:");
+            HouseNumber = Console.ReadLine();
+            Console.Write("Введите номер квартиры:");
+            FlatNumber = Console.ReadLine();
+            Console.Write("Введите номер домашнего телефона:");
+            MobilePhone = Console.ReadLine();
+            Console.Write("Введите номер мобильного телефона:");
+            FlatPhone = Console.ReadLine();
 
+            Serialize(Name, Street, HouseNumber, FlatNumber, MobilePhone, FlatPhone);
         }
 
         #region Методы для 1 задания
@@ -230,12 +279,27 @@ namespace Homework8
 
         #endregion
 
-        #region Методы для 3 задания
+        #region Методы для 3 задания (пусто)
 
         #endregion
 
         #region Методы для 4 задания
+        static void Serialize(string Name, string Street, string HouseNumber, string FlatNumber, string MobilePhone, string FlatPhone)
+        {
+            XElement Person = new XElement("Person");
+            XElement Adress = new XElement("Adress");
+            XElement Phones = new XElement("Phones");
 
+            Person.Add(new XAttribute("Name", Name));
+            Adress.Add(new XElement("Street", Street));
+            Adress.Add(new XElement("HouseNumber", HouseNumber));
+            Adress.Add(new XElement("FlatNumber", FlatNumber));
+            Phones.Add(new XElement("MobilePhone", MobilePhone));
+            Phones.Add(new XElement("FlatPhone", FlatPhone));
+            Person.Add(Adress);
+            Person.Add(Phones);
+            Person.Save("test.xml");
+        }
         #endregion
     }
 }
