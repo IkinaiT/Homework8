@@ -291,11 +291,11 @@ namespace Homework8
             XElement Phones = new XElement("Phones");
 
             Person.Add(new XAttribute("Name", Name));
-            Adress.Add(new XElement("Street", Street));
-            Adress.Add(new XElement("HouseNumber", HouseNumber));
-            Adress.Add(new XElement("FlatNumber", FlatNumber));
-            Phones.Add(new XElement("MobilePhone", MobilePhone));
-            Phones.Add(new XElement("FlatPhone", FlatPhone));
+            Adress.Add(new XAttribute("Street", Street));
+            Adress.Add(new XAttribute("HouseNumber", HouseNumber));
+            Adress.Add(new XAttribute("FlatNumber", FlatNumber));
+            Phones.Add(new XAttribute("MobilePhone", MobilePhone));
+            Phones.Add(new XAttribute("FlatPhone", FlatPhone));
             Person.Add(Adress);
             Person.Add(Phones);
             Person.Save("test.xml");
